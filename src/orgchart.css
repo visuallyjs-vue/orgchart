@@ -1,0 +1,145 @@
+:root {
+    --bg-choice:rebeccapurple;
+    --bg-choice-option:#bb99a4;
+    --bg-input:coral;
+    --bg-start:navy;
+    --bg-end: #ff667b;
+    --bg-message:mediumseagreen;
+    --bg-delete:orangered;
+    --bg-test: #e1b987;
+
+    --color-selected:cadetblue;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.vjs-orgchart {
+    display: flex;
+    height: 100vh;
+}
+
+.vjs-orgchart-canvas {
+    background-color: white;
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden !important;
+}
+
+.vjs-orgchart-rhs {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: #f9f9f9;
+    flex: 0 0 250px;
+    padding: 20px 5px 0 5px;
+}
+
+
+.vjs-miniview {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 100;
+}
+
+/*
+    Controls component. we show only a 'zoom to extents' button in this app.
+*/
+.vjs-controls {
+    left:1rem;
+    top:1rem;
+    z-index: 100;
+    position:absolute;
+}
+
+/**
+    Buttons in the controls component
+ */
+.vjs-controls i {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+/* ------------------- edge styles -------------------------- */
+
+.vjs-connector path {
+    stroke:black;
+    stroke-width: 2px;
+}
+
+
+/* -------------- node styles ------------------- */
+
+ .vjs-node {
+     padding:0.5rem;
+     border:2px solid #3177b8;
+     border-radius: 5px;
+     display:flex;
+     align-items: center;
+     width:210px;
+     height:100px;
+ }
+
+ .vjs-node img {
+     width:90px;
+     margin-right:0.5rem;
+ }
+
+.vjs-node > div {
+    display: flex;
+    flex-direction: column;
+}
+
+/**
+    Assigned to the currently selected person.
+ */
+.vjs-selected-element {
+    outline:1px dotted seagreen;
+    outline-offset: 1rem;
+    background-color:var(--color-selected);
+    color:white;
+}
+
+/* ----------- inspector --------------------- */
+.vjs-orgchart-inspector {
+    padding: 0.5rem;
+    display:flex;
+    flex-direction: column;
+}
+
+.vjs-orgchart-inspector-person {
+    display:flex;
+    align-items: center;
+    padding:0.25rem;
+    text-decoration: none;
+    cursor:pointer;
+    color:var(--color-selected);
+}
+
+.vjs-orgchart-inspector-person:visited {
+    color:var(--color-selected);
+}
+
+.vjs-orgchart-inspector-person img {
+    width:40px;
+    margin-right:0.25rem;
+}
+
+.vjs-orgchart-inspector-person:hover {
+    background-color: white;
+}
+
+.vjs-orgchart-inspector-person div {
+     display:flex;
+     flex-direction: column;
+ }
+
+.vjs-orgchart-inspector-person div span {
+    font-size:11px;
+    color:black;
+}
+
