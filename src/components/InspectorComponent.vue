@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { InspectorComponent } from "@visuallyjs/browser-ui-vue"
+import officeLocations from "../office-locations"
 
 const props = defineProps({
   onSelect: Function
@@ -9,6 +10,16 @@ const props = defineProps({
 const current = ref(null)
 const manager = ref(null)
 const reports = ref([])
+
+const timezone = computed(() => {
+  if (!current.value) return ""
+  const locationData = officeLocations.find(loc => loc.name === current.value.data.location)
+  return locationData ? locationData.timezone : ""
+})
+
+function getTimezoneOffset(tz) {
+  return tz.match(/\((UTC[+-]\d+)\)/)?.[1] || tz;
+}
 
 function getImage(person) {
   return `/avatars/${person.data.img}`
@@ -43,6 +54,18 @@ function selectPerson(person) {
 
       <h1>{{ current.data.name }}</h1>
       <h2>{{ current.data.title }}</h2>
+
+      <div class="vjs-orgchart-inspector-details">
+        <div class="vjs-node-status-container">
+          <span :class="['vjs-node-status', current.data.online ? 'vjs-node-status-online' : 'vjs-node-status-offline']"></span>
+          <span class="vjs-node-status-text">{{ current.data.online ? 'Online' : 'Offline' }}</span>
+        </div>
+        <a :href="'mailto:' + current.data.email" class="vjs-node-email">{{current.data.email}}</a>
+        <span class="vjs-node-location">
+          {{current.data.location}}
+          <span v-if="timezone" class="vjs-node-timezone"> ({{getTimezoneOffset(timezone)}})</span>
+        </span>
+      </div>
 
       <template v-if="manager != null">
         <h5>Reports to:</h5>

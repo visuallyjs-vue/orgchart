@@ -1,27 +1,30 @@
 :root {
-    --bg-choice:rebeccapurple;
-    --bg-choice-option:#bb99a4;
-    --bg-input:coral;
-    --bg-start:navy;
-    --bg-end: #ff667b;
-    --bg-message:mediumseagreen;
-    --bg-delete:orangered;
-    --bg-test: #e1b987;
+    --vjs-orgchart-bg-choice: #6366f1;
+    --vjs-orgchart-bg-choice-option: #e0e7ff;
+    --vjs-orgchart-bg-input: #f8fafc;
+    --vjs-orgchart-bg-start: #1e293b;
+    --vjs-orgchart-bg-end: #334155;
+    --vjs-orgchart-bg-message: #22c55e;
+    --vjs-orgchart-bg-delete: #ef4444;
+    --vjs-orgchart-bg-test: #f59e0b;
 
-    --color-selected:cadetblue;
-}
-
-body {
-    font-family: sans-serif;
+    --vjs-orgchart-color-selected: #3b82f6;
+    --vjs-orgchart-border-color: #e2e8f0;
+    --vjs-orgchart-text-main: #1e293b;
+    --vjs-orgchart-text-muted: #64748b;
+    --vjs-orgchart-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --vjs-orgchart-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .vjs-orgchart {
     display: flex;
-    height: 100vh;
+    height: 80vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: var(--vjs-orgchart-text-main);
 }
 
 .vjs-orgchart-canvas {
-    background-color: white;
+    background-color: #f8fafc;
     display: flex;
     flex-grow: 1;
     position: relative;
@@ -32,114 +35,252 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    background-color: #f9f9f9;
-    flex: 0 0 250px;
-    padding: 20px 5px 0 5px;
+    background-color: white;
+    flex: 0 0 200px;
+    padding: 24px 12px 0 12px;
+    border-left: 1px solid var(--vjs-orgchart-border-color);
+    box-shadow: var(--vjs-orgchart-shadow-sm);
 }
 
 
 .vjs-miniview {
     position: absolute;
-    bottom: 1rem;
-    left: 1rem;
+    bottom: 24px;
+    right: 24px;
     z-index: 100;
+    border: 1px solid var(--vjs-orgchart-border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--vjs-orgchart-shadow-md);
+    background-color: white;
 }
 
 /*
     Controls component. we show only a 'zoom to extents' button in this app.
 */
 .vjs-controls {
-    left:1rem;
-    top:1rem;
+    left: 24px;
+    top: 24px;
     z-index: 100;
-    position:absolute;
+    background: white;
+    border: 1px solid var(--vjs-orgchart-border-color);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: var(--vjs-orgchart-shadow-md);
 }
 
 /**
     Buttons in the controls component
  */
 .vjs-controls i {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.vjs-controls i:hover {
+    background-color: #f1f5f9;
 }
 
 /* ------------------- edge styles -------------------------- */
 
 .vjs-connector path {
-    stroke:black;
-    stroke-width: 2px;
+    stroke: var(--vjs-orgchart-text-muted);
+    stroke-width: 1.5px;
 }
 
 
 /* -------------- node styles ------------------- */
 
  .vjs-node {
-     padding:0.5rem;
-     border:2px solid #3177b8;
-     border-radius: 5px;
-     display:flex;
+     padding: 12px;
+     border: 1px solid var(--vjs-orgchart-border-color);
+     border-radius: 12px;
+     display: flex;
      align-items: center;
-     width:210px;
-     height:100px;
+     width: 240px;
+     min-height: 80px;
+     background-color: white;
+     box-shadow: var(--vjs-orgchart-shadow-sm);
+     transition: box-shadow 0.2s ease, border-color 0.2s ease;
+ }
+
+ .vjs-node:hover {
+     box-shadow: var(--vjs-orgchart-shadow-md);
+     border-color: #cbd5e1;
  }
 
  .vjs-node img {
-     width:90px;
-     margin-right:0.5rem;
+     width: 56px;
+     height: 56px;
+     border-radius: 50%;
+     object-fit: cover;
+     margin-right: 16px;
+     border: 2px solid #f1f5f9;
  }
 
 .vjs-node > div {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+}
+
+.vjs-node > div span:first-child {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vjs-node > div .vjs-node-title {
+    font-size: 13px;
+}
+
+.vjs-node > div span:last-child,
+.vjs-node-email,
+.vjs-node-location,
+.vjs-node-timezone {
+    font-size: 12px;
+    color: var(--vjs-orgchart-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /**
     Assigned to the currently selected person.
  */
 .vjs-selected-element {
-    outline:1px dotted seagreen;
-    outline-offset: 1rem;
-    background-color:var(--color-selected);
-    color:white;
+    outline: 2px solid var(--vjs-orgchart-color-selected);
+    outline-offset: 4px;
+    background-color: #eff6ff;
+}
+
+.vjs-selected-element .vjs-node > div span:first-child {
+    color: var(--vjs-orgchart-color-selected);
+}
+
+.vjs-orgchart-inspector-details {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    margin-bottom: 16px;
+}
+
+.vjs-orgchart-inspector-details .vjs-node-email,
+.vjs-orgchart-inspector-details .vjs-node-location {
+    font-size: 13px;
+    white-space: normal;
+    overflow: visible;
 }
 
 /* ----------- inspector --------------------- */
 .vjs-orgchart-inspector {
-    padding: 0.5rem;
-    display:flex;
+    display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .vjs-orgchart-inspector-person {
-    display:flex;
+    display: flex;
     align-items: center;
-    padding:0.25rem;
+    padding: 10px;
+    border-radius: 8px;
     text-decoration: none;
-    cursor:pointer;
-    color:var(--color-selected);
+    cursor: pointer;
+    color: var(--vjs-orgchart-text-main);
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .vjs-orgchart-inspector-person:visited {
-    color:var(--color-selected);
+    color: var(--vjs-orgchart-text-main);
 }
 
 .vjs-orgchart-inspector-person img {
-    width:40px;
-    margin-right:0.25rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    background-color: #f1f5f9;
 }
 
 .vjs-orgchart-inspector-person:hover {
-    background-color: white;
+    background-color: #f1f5f9;
+}
+
+.vjs-orgchart-inspector-person:active {
+    transform: scale(0.98);
 }
 
 .vjs-orgchart-inspector-person div {
-     display:flex;
+     display: flex;
      flex-direction: column;
+     min-width: 0;
  }
 
-.vjs-orgchart-inspector-person div span {
-    font-size:11px;
-    color:black;
+.vjs-orgchart-inspector-person div span:first-child {
+    font-weight: 500;
+    font-size: 14px;
 }
 
+.vjs-orgchart-inspector-person div span:last-child {
+    font-size: 12px;
+    color: var(--vjs-orgchart-text-muted);
+}
+
+
+.vjs-node-email {
+    font-style: italic;
+    margin-top: 2px;
+    text-decoration: none;
+}
+
+.vjs-node-email:hover {
+    text-decoration: underline;
+    color: var(--vjs-orgchart-color-selected);
+}
+
+.vjs-node-location {
+    font-weight: 500;
+}
+
+.vjs-node-timezone {
+    font-weight: normal;
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+.vjs-node-status-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.vjs-node-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.vjs-node-status-online {
+    background-color: #22c55e;
+    box-shadow: 0 0 4px #22c55e;
+}
+
+.vjs-node-status-offline {
+    background-color: #ef4444;
+}
+
+.vjs-node-status-text {
+    font-size: 11px;
+    color: var(--vjs-orgchart-text-muted);
+}
