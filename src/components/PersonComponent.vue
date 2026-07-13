@@ -10,7 +10,7 @@ const props = defineProps({
   ui:BrowserUI
 })
 
-const zoom = useZoom(props.ui)
+const zoom = useZoom()
 
 function getImage() {
   return `/avatars/${props.obj.data.img}`
